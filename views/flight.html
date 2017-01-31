@@ -1,0 +1,81 @@
+<table>
+	<thead>
+		<th width="150">Aircraft</th>
+		<th width="150">Departure Date</th>
+		<th width="150">Departure Airport</th>
+		<th width="150">Arrival Airport</th>
+		<th width="150">Price</th>
+		<th width="150">Edit</th>
+	</thead>
+	
+	<tbody>
+		<tr ng-repeat="aircraft in fleetDetails" ng-if="aircraft.flight" align="center">
+			<td>{{ aircraft.Name }}</td>
+			<td>
+				<div ng-hide="editingData[aircraft._id]">{{ aircraft.flight.Departure_Date | date : "yyyy-MM-dd"}}</div>
+				<div ng-show="editingData[aircraft._id]">
+					<input type="date" ng-model="aircraft.flight.Departure_Date" placeholder="yyyy-MM-dd" min="1990-01-01" max="2099-12-31" />
+				</div>	
+			</td>
+			<td>
+				<div ng-hide="editingData[aircraft._id]">{{ aircraft.flight.Departure_Airport }}</div>
+				<div ng-show="editingData[aircraft._id]"><input type="text" ng-model="aircraft.flight.Departure_Airport" /></div>
+			</td>
+			<td>
+				<div ng-hide="editingData[aircraft._id]">{{ aircraft.flight.Arrival_Airport }}</div>
+				<div ng-show="editingData[aircraft._id]"><input type="text" ng-model="aircraft.flight.Arrival_Airport" /></div>
+			</td>
+			<td>
+				<div ng-hide="editingData[aircraft._id]">{{ aircraft.flight.Price }}</div>
+				<div ng-show="editingData[aircraft._id]"><input type="number" min=0 ng-model="aircraft.flight.Price" /></div>
+			</td>
+			<td>
+				<button ng-hide="editingData[aircraft._id]" ng-click="editAircraft(aircraft)">Edit</button>
+				<button ng-show="editingData[aircraft._id]" ng-click="saveFlight(aircraft)">Save</button>
+				<button ng-hide="editingData[aircraft._id]" ng-click="removeFlight(aircraft)">Remove</button>
+				<button ng-show="editingData[aircraft._id]" ng-click="cancelSave(aircraft)">Cancel</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<md-card>
+	<md-card-title>
+		<md-card-title-text>
+			<span class="md-headline">Add or Update Flight</span>
+		</md-card-title-text>
+	</md-card-title>
+	
+	<md-card-content>
+		<form name="flightForm">
+			<div layout="row" layout-align="start" flex>
+				<md-input-container>
+					<label>Aircraft</label>
+					<md-select ng-model="Aircraft" required>
+						<md-option ng-repeat="aircraft in fleetDetails" ng-value="aircraft.Name">{{aircraft.Name}}</md-option>
+					</md-select>
+				</md-input-container>
+				<md-input-container>
+					<label>Departure Date</label>
+					<input type="date" ng-model="Dep_Date" placeholder="yyyy-MM-dd" min="1990-01-01" max="2099-12-31" required />
+				</md-input-container>
+				<md-input-container>
+					<label>Departure Airport</label>
+					<input type="text" ng-model="Departure" required />
+				</md-input-container>
+				<md-input-container>
+					<label>Arrival Airport</label>
+					<input type="text" ng-model="Arrival" required />
+				</md-input-container>
+				<md-input-container>
+					<label>Price</label>
+					<input type="number" ng-model="Price" required />
+				</md-input-container>
+			</div>
+			<div layout="row" layout-align="end" flex>
+				<md-button ng-click="clearFlightForm()" ng-disabled="!(Aircraft || Dep_Date || Departure || Arrival || Price)">Clear</md-button>
+				<md-button ng-click="addFlight()" class="md-raised" ng-disabled="!(Aircraft && Dep_Date && Departure && Arrival && Price)">Submit</md-button>
+			</div>
+		</form>
+	</md-card-content>
+</md-card>

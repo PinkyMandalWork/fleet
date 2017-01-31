@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= title %></title>
+		<link rel="stylesheet" href="/stylesheets/style.css" />
+		<link rel="stylesheet" href="/angular-material/angular-material.min.css" />
+		<script src="/angular/angular.min.js"></script>
+		<script src="/angular-material/angular-material.js"></script>
+		<script src="/angular-animate/angular-animate.min.js"></script>
+		<script src="/angular-aria/angular-aria.min.js"></script>
+		<script src="/javascripts/aircraft.js"></script>
+	</head>
+	
+	<body ng-app="airApp" ng-controller="appCtrl" ng-cloak>
+		<md-toolbar class="md-warn">
+			<div class="md-toolbar-tools">
+				<h2 class="md-flex"><%= title %></h2>
+			</div>
+		</md-toolbar>
+		
+		<md-content>
+			<md-tabs md-dynamic-height md-border-bottom>
+				<md-tab label="Aircraft Fleet Editor">
+					<md-content class="md-padding">
+						<% include aircraft.html %>
+					</md-content>
+				</md-tab>
+
+				<md-tab label="Flight Editor">
+					<md-content class="md-padding">
+						<% include flight.html %>
+					</md-content>
+				</md-tab>
+			</md-tabs>
+		</md-content>
+	</body>
+</html>

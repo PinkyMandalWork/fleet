@@ -1,0 +1,84 @@
+<table>
+	<thead>
+		<th width="150">Name</th>
+		<th width="150">Category</th>
+		<th width="150">Number of Seats</th>
+		<th width="150">Price per Hour</th>
+		<th width="150">Airport</th>
+		<th width="150">Edit</th>
+	</thead>
+	<tbody>
+		<tr ng-repeat="aircraft in fleetDetails" align="center">
+			<td>{{ aircraft.Name }}</td>
+			<td>
+				<div ng-hide="editingData[aircraft._id]">{{ aircraft.Category }}</div>
+				<div ng-show="editingData[aircraft._id]">
+					<select ng-model="aircraft.Category">
+						<option value="Light Jet">Light Jet</option>
+						<option value="Heavy Jet">Heavy Jet</option>
+					<select>
+				</div>
+			</td>
+			<td>
+				<div ng-hide="editingData[aircraft._id]">{{ aircraft.Number_of_Seats }}</div>
+				<div ng-show="editingData[aircraft._id]"><input type="text" min=0 ng-model="aircraft.Number_of_Seats" /></div>
+			</td>
+			<td>
+				<div ng-hide="editingData[aircraft._id]">{{ aircraft.Price_per_Hour }}</div>
+				<div ng-show="editingData[aircraft._id]"><input type="number" min=0 ng-model="aircraft.Price_per_Hour" /></div>
+			</td>
+			<td>
+				<div ng-hide="editingData[aircraft._id]">{{ aircraft.Airport }}</div>
+				<div ng-show="editingData[aircraft._id]"><input type="text" ng-model="aircraft.Airport" /></div>
+			</td>
+			<td>
+				<button ng-hide="editingData[aircraft._id]" ng-click="editAircraft(aircraft)">Edit</button>
+				<button ng-show="editingData[aircraft._id]" ng-click="saveAircraft(aircraft)">Save</button>
+				<button ng-hide="editingData[aircraft._id]" ng-click="removeAircraft(aircraft)">Remove</button>
+				<button ng-show="editingData[aircraft._id]" ng-click="cancelSave(aircraft)">Cancel</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<md-card>
+	<md-card-title>
+		<md-card-title-text>
+			<span class="md-headline">Add Aircraft</span>
+		</md-card-title-text>
+	</md-card-title>
+	
+	<md-card-content>
+		<form name="aircraftForm">
+			<div layout="row" layout-align="start" flex>
+				<md-input-container>
+					<label>Name</label>
+					<input type="text" ng-model="Name" required />
+				</md-input-container>
+				<md-input-container>
+					<label>Category</label>
+					<md-select ng-model="Category" required>
+						<md-option value="Light Jet">Light Jet</md-option>
+						<md-option value="Heavy Jet">Heavy Jet</md-option>
+					</md-select>
+				</md-input-container>	
+				<md-input-container>
+					<label>Number of Seats</label>
+					<input type="number" ng-model="Seats" min=0 required />
+				</md-input-container>
+				<md-input-container>
+					<label>Price per Hour</label>
+					<input type="number" ng-model="Hour" min=0 required />
+				</md-input-container>
+				<md-input-container>
+					<label>Airport</label>
+					<input type="text" ng-model="Airport" required />
+				</md-input-container>
+			</div>
+			<div layout="row" layout-align="end" flex>
+				<md-button ng-click="clearAirForm()" ng-disabled="!(Name || Category || Seats || Hour || Airport)">Clear</md-button>
+				<md-button ng-click="addAircraft()" class="md-raised" ng-disabled="!(Name && Category && Seats && Hour && Airport)">Submit</md-button>
+			</div>
+		</form>
+	</md-card-content>
+</md-card>
