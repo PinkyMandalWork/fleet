@@ -6,7 +6,7 @@ Install dependencies:
 $ npm install
 
 Start the mongoDB:
-$ mongod --dbpath fleet
+$ mongod --dbpath fleet, 
 $ mongo
 
 Start the server:
